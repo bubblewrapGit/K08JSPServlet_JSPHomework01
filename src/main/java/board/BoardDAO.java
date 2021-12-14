@@ -32,10 +32,14 @@ public class BoardDAO extends JDBConnect {
 	
 	public List<BoardDTO> selectList(Map<String, Object> map) {
 		List<BoardDTO> bbs = new Vector<BoardDTO>();
-		String query = "SELECT * FROM ( "
-				+ "    SELECT Tb.*, ROWNUM rNum FROM "
-				+ "        (SELECT * FROM board ORDER BY num DESC) Tb) "
-				+ " WHERE rNum BETWEEN ? AND ?";
+		
+		String query = " SELECT * FROM (SELECT tb.*, ROWNUM rnum FROM (SELECT * FROM board  ";
+				
+				if(map.get("searchKey") != null) {
+					query += " WHERE " + map.get("serachArea") + " LIKE '%" + map.get("searchKey") + "%' ";
+				}
+		
+				query += " ORDER BY num DESC) tb) WHERE rnum BETWEEN ? AND ? ";
 		
 		try {
 			psmt = con.prepareStatement(query);
@@ -93,13 +97,15 @@ public class BoardDAO extends JDBConnect {
 		int result = 0;
 		try {
 			String query = "INSERT INTO board "
-					+ " ( num, title, content, id, postdate, VISITCOUNT ) "
+					+ " ( num, id, title, content, postdate, VISITCOUNT ) "
 					+ " VALUES ( seq_board_num.nextval, ?, ?, ?, sysdate, 0 ) ";
 			
 			psmt = con.prepareStatement(query);
-			psmt.setString(1, dto.getTitle());
-			psmt.setString(2, dto.getContent());
-			psmt.setString(3, dto.getId());
+			
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getTitle());
+			psmt.setString(3, dto.getContent());
+			
 			
 			result = psmt.executeUpdate();
 		} catch (Exception e) {
@@ -110,4 +116,11 @@ public class BoardDAO extends JDBConnect {
 		return result;
 	}
 	
+//	public BoardDTO searchList(Map<String, Object> param) {
+//		BoardDTO dto = new BoardDTO();
+//		String query = "";
+//		
+//		
+//		return dto;
+//	}
 }

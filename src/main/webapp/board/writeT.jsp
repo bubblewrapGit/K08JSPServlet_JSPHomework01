@@ -2,17 +2,14 @@
 <%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="./alreadyLogin.jsp" %>
     <%
     	BoardDAO dao = new BoardDAO(application);
     %>
 <%@ include file="./commons/header.jsp" %>
 <script>
 	function validateForm(form){
-		if(form.pass.value == ""){
-			alert("비밀번호를 입력하세요")
-			form.pass.focus();
-			return false;
-		}else if(form.title.value==""){
+		if(form.title.value==""){
 			alert("글 제목을 입력하세요")
 			form.title.focus();
 			return false;
@@ -36,8 +33,11 @@
         <!-- Contents영역 -->
         <div class="col-9 pt-3">
             <h3>게시판 작성 - <small>자유게시판</small></h3>
-            
-            <form enctype="multipart/form-data" action="WriteProcess.jsp" method="post" name="writeFrm" onsubmit="return validateForm(this);">
+            <!-- 
+	            form태그에 아래 인코딩안하겟다는 속성이 붙었을때는 값이 전송되지 않는 이슈 발생
+	            	enctype="multipart/form-data" 
+            -->
+            <form action="WriteProcess.jsp" method="post" name="writeFrm" onsubmit="return validateForm(this);">
                 <table class="table table-bordered">
                 <colgroup>
                     <col width="20%"/>
@@ -50,14 +50,6 @@
                         <td>
                             <input type="text" class="form-control" 
                                 style="width:100px;" value="<%= session.getAttribute("userId") %>" disabled />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="text-center" 
-                            style="vertical-align:middle;">패스워드</th>
-                        <td>
-                            <input type="text" class="form-control" 
-                                style="width:200px;" name="pass"/>
                         </td>
                     </tr>
                     <tr>

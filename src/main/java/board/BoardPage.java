@@ -4,8 +4,6 @@ public class BoardPage {
 	public static String pagingStr(int totalCount, int listVolum, int pagingTotalCnt, int pagingVolum, int pageNum, String rURI) {
 		String paging = "";
 		
-		System.out.println("pageNum : " + pageNum);
-		System.out.println("pagingTotalCnt : " + pagingTotalCnt);
 		/*
 			totalCount : 총 게시물 갯수
 			listVolum : 한 페이지당 보여줄 게시물(10)
@@ -35,8 +33,6 @@ public class BoardPage {
 		
 		int flag = 1;
 		while(flag <= pagingVolum && first <= pagingTotalCnt) {
-			System.out.println("flag : " + flag);
-			System.out.println("first : " + first);
 			paging += "<li class='page-item ";
 			
 			if(pageNum == first) {
@@ -62,8 +58,6 @@ public class BoardPage {
 					+ "</li>";
 		}
 		
-		
-		System.out.println(paging);
 		return paging;
 	}
 }

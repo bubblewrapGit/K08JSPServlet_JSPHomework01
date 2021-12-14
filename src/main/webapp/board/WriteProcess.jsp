@@ -3,6 +3,7 @@
 <%@page import="board.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="./alreadyLogin.jsp" %>
 <%
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
@@ -11,6 +12,9 @@
 	BoardDTO dto = new BoardDTO();
 	dto.setTitle(title);
 	dto.setContent(content);
+	
+	
+	
 	dto.setId(session.getAttribute("userId").toString());
 	
 	
@@ -18,7 +22,6 @@
 	int result = dao.insertWrite(dto);
 	dao.close();
 	
-	System.out.println(result);
 	
 	if(result == 1){
 		response.sendRedirect("listT.jsp");

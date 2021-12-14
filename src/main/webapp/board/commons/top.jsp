@@ -11,7 +11,7 @@
                     <!-- GNB(Global Navigation Bar : 해당 웹사이트의 전체(global) 메뉴) -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">자유게시판</a>
+                            <a class="nav-link active" href="./listT.jsp">자유게시판</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">자료실</a>

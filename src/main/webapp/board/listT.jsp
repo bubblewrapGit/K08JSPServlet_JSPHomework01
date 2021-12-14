@@ -7,16 +7,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="./commons/header.jsp" %>
+<%@ include file="./alreadyLogin.jsp" %>
 <%
 	BoardDAO dao = new BoardDAO(application);
 
 	Map<String, Object> param = new HashMap<String, Object>();
 	
 	int totalCount = dao.selectCount(param);
-	System.out.println("totalCount : " + totalCount);
+	
+	String serachArea = request.getParameter("serachArea");
+	String searchKey = request.getParameter("searchKey");
+	if(serachArea != null && searchKey != null){
+		param.put("serachArea", serachArea);
+		param.put("searchKey", searchKey);
+	}
+	
 	
 	int pagingTotalCnt = (int)(Math.ceil((double)totalCount / 10));
-	System.out.println("listTotalCnt  : " + pagingTotalCnt ); 
+
 	int start = 1;
 	int end = pagingTotalCnt;
 	int listVolum = 10;
@@ -53,14 +61,14 @@
             <h3>게시판 목록 - <small>자유게시판</small></h3>
             <!-- 검색 -->
             <div class="row">
-                <form action="">
+                <form method="get">
                     <div class="input-group ms-auto" style="width: 400px;">
-                        <select name="" class="form-control">
-                            <option value="">제목</option>
-                            <option value="">내용</option>
-                            <option value="">작성자</option>
+                        <select name="serachArea" class="form-control">
+                            <option value="title" selected>제목</option>
+                            <option value="content">내용</option>
+                            <option value="id">작성자</option>
                         </select>
-                        <input type="text" class="form-control" placeholder="Search" style="width: 200px;">
+                        <input type="text" class="form-control" placeholder="Search" style="width: 200px;" name="searchKey" value="">
                         <button class="btn btn-success" type="submit">
                             <i class="bi-search" style="font-size: 1rem; color: white;"></i>
                         </button>

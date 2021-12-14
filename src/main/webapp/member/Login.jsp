@@ -28,8 +28,7 @@
 </head>
 <body>
 <span style="color: red; font-size:1.2em;">
-		<%= request.getAttribute("LoginErrMsg") == null ? 
-				"" : request.getAttribute("LoginErrMsg") %>
+		<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") %>
 	</span>
 <fieldset>
     <table border="0" cellpadding="40" cellspacing="0" width="100%">
