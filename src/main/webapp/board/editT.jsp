@@ -8,7 +8,9 @@
     
     	BoardDAO dao = new BoardDAO(application);
     	
-    	/* BoardDTO dto = dao. */
+    	BoardDTO dto = dao.selectView(num);
+    	
+    	dao.close();
     %>
 <%@ include file="./commons/header.jsp" %>
 <script>
@@ -41,13 +43,18 @@
 	            form태그에 아래 인코딩안하겟다는 속성이 붙었을때는 값이 전송되지 않는 이슈 발생
 	            	enctype="multipart/form-data" 
             -->
-            <form action="EditProcess.jsp" method="post" name="writeFrm" onsubmit="return validateForm(this);">
+            <form action="editTProcess.jsp" method="post" name="writeFrm" onsubmit="return validateForm(this);">
                 <table class="table table-bordered">
                 <colgroup>
                     <col width="20%"/>
                     <col width="*"/>
                 </colgroup>
                 <tbody>
+                	<tr>
+                		<td>
+                			<input type="text" name="num" value="<%= dto.getNum() %>"/>
+                		</td>
+                	</tr>
                     <tr>
                         <th class="text-center" 
                             style="vertical-align:middle;">작성자</th>
@@ -60,14 +67,14 @@
                         <th class="text-center" 
                             style="vertical-align:middle;">제목</th>
                         <td>
-                            <input type="text" class="form-control" name="title" value=""/>
+                            <input type="text" class="form-control" name="title" value="<%= dto.getTitle() %>"/>
                         </td>
                     </tr>
                     <tr>
                         <th class="text-center" 
                             style="vertical-align:middle;">내용</th>
                         <td>
-                            <textarea rows="5" class="form-control" name="content"></textarea>
+                            <textarea rows="5" class="form-control" name="content"><%= dto.getContent() %></textarea>
                         </td>
                     </tr>
                 </tbody>

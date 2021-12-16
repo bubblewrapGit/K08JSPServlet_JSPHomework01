@@ -116,11 +116,27 @@ public class BoardDAO extends JDBConnect {
 		return result;
 	}
 	
-//	public BoardDTO searchList(Map<String, Object> param) {
-//		BoardDTO dto = new BoardDTO();
-//		String query = "";
-//		
-//		
-//		return dto;
-//	}
+	public int updateEdit(BoardDTO dto) {
+		int result = 0;
+		
+		try {
+			String query = "UPDATE board SET "
+						 + " title=?, content=? "
+						 + " WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getNum());
+			System.out.println(
+					"dto.getNum() : " + dto.getNum()
+					);
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("글수정 오류");
+			e.printStackTrace();
+		}
+		System.out.println("result1 : " + result);
+		return result;
+	}
 }

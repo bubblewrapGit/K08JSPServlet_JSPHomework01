@@ -12,6 +12,8 @@ BoardDTO dto = dao.selectView(num);
 dao.close();
 %>
 <%@ include file="./commons/header.jsp" %>
+
+
 <body>
 <div class="container">
     <!-- Top영역 -->
